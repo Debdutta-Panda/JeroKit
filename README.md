@@ -119,7 +119,8 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
 ```
 ## Navigation
 
-Let's suppose we need to goto pageA when MainScreen's one button will be clicked. In that case the MainViewModel will look like below:
+Let's suppose we need to goto pageA when MainScreen's one button will be clicked. 
+In that case the MainViewModel will look like below:
 ```Kotlin
 class MainViewModel: WirelessViewModelInterface, ViewModel() {
     override val softInputMode = mutableStateOf(SoftInputMode.adjustNothing)
@@ -139,3 +140,38 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
 }
 ```
 Inside the `navigation.scope` block you can do any in-built navigation action you want. JeroKit gives you full freedom to use navigation api.
+# Notifier
+
+```Kotlin
+@Composable
+fun MainScreen(
+    notifier: NotificationService = myNotifier()
+){
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ){
+        item{
+            Button(onClick = {
+                notifier.notify("goto_a")
+            }) {
+                Text("Go to PageA")
+            }
+        }
+
+    }
+}
+```
+It is to notify viewModel about any UI action/interaction/event etc.
+
+`notifier.notify` takes 2 arguments. First is id, second is for data, it is optional. Id ardument will take any non-null thing.
+
+The notification will be tracked inside `override val notifier: NotificationService = NotificationService block`
+```Kotlin
+override val notifier: NotificationService = NotificationService{id,arg->
+        when(id) {
+            "your_id"->{
+                // do whatever you want, arg can be null as it is optional
+            }
+        }
+    }
+```
