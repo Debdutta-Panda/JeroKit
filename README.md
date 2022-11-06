@@ -368,3 +368,32 @@ Column(){
     }
 }
 ```
+
+# Resulting activity handle
+
+## Example: Take picture preview from camera
+-------------------------------
+
+```Kotlin
+Column {
+    AsyncImage(
+        model = image,
+        contentDescription = ""
+    )
+    Button(onClick = {
+        notifier.notify("image")
+    }) {
+        Text("Take Image")
+    }
+}
+```
+```Kotlin
+"image"->{
+    viewModelScope.launch(Dispatchers.Main) {
+        val result = resultingActivityHandler.takePicturePreview()
+        withContext(Dispatchers.Main){
+            image.value = result
+        }
+    }
+}
+```
