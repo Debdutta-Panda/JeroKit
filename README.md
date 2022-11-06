@@ -287,3 +287,44 @@ val statusBarColor = mutableStateOf<StatusBarColor?>(null)
 */
 StatusBarColorId to statusBarColor
 ```
+
+# Soft input mode management
+
+```Kotlin
+Column {
+    Row(){
+        Button(onClick = {
+            notifier.notify("softInputMode",0)
+        }) {
+            Text("Pan")
+        }
+        Button(onClick = {
+            notifier.notify("softInputMode",1)
+        }) {
+            Text("Nothing")
+        }
+        Button(onClick = {
+            notifier.notify("softInputMode",2)
+        }) {
+            Text("Unspecified")
+        }
+        Button(onClick = {
+            notifier.notify("softInputMode",3)
+        }) {
+            Text("Resize")
+        }
+    }
+    Box(modifier =Modifier.height(400.dp))
+    TextField(value = "", onValueChange = {})
+}
+```
+```Kotlin
+"softInputMode"->{
+    when(arg){
+        0->softInputMode.value = SoftInputMode.adjustPan
+        1->softInputMode.value = SoftInputMode.adjustNothing
+        2->softInputMode.value = SoftInputMode.adjustUnspecified
+        3->softInputMode.value = SoftInputMode.adjustResize
+    }
+}
+```
