@@ -520,12 +520,21 @@ class Sheet1Model(val callback: Callback): BottomSheetModel {
     }
 
     override fun clear() {
-
+        text.value = ""
+        text1.value = ""
+        text2.value = ""
     }
 
     override fun onBack() {
         callback.close()
     }
+
+    override fun onVisibilityChange(it: Boolean) {
+        if(!it){
+            clear()
+        }
+    }
+
     ////////////
     private val text = mutableStateOf("")
     private val text1 = mutableStateOf("")
@@ -631,12 +640,19 @@ class Sheet2Model(val callback: Callback): BottomSheetModel {
     }
 
     override fun clear() {
-
+        text.value = ""
+        text1.value = ""
+        text2.value = ""
     }
 
     override fun onBack() {
         callback.close()
     }
+
+    override fun onVisibilityChange(it: Boolean) {
+        clear()
+    }
+
     ////////////
     private val text = mutableStateOf("")
     private val text1 = mutableStateOf("")
