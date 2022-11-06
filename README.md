@@ -332,3 +332,39 @@ Column {
 # UI reusability across multiple viewModels
 
 Because UI has not any viewModel instance access, it is getting data via resolver and sending UI events through notifier it is fully decoupled from viewModel instance. So any ui can be attached to any viewModel, that viewModel must satisfy the UI data requirement otherwise app will crash, it is by design.
+
+# Permission management
+
+```Kotlin
+Column(){
+    Row(){
+        Button(onClick = {
+            notifier.notify("check_permission")
+        }) {
+            Text("CheckPermission")
+        }
+        Button(onClick = {
+            notifier.notify("request_permission")
+        }) {
+            Text("RequestPermission")
+        }
+    }
+    Text(myPermissionCheck)
+}
+```
+```Kotlin
+"check_permission"->{
+    viewModelScope.launch(Dispatchers.Main) {
+        val result = permissionHandler.check(android.Manifest.permission.CAMERA)
+        val granted = result?.allPermissionsGranted==true
+        myPermissionCheck.value = "CheckResult: $granted"
+    }
+}
+"request_permission"->{
+    viewModelScope.launch(Dispatchers.Main) {
+        val result = permissionHandler.request(android.Manifest.permission.CAMERA)
+        val granted = result?.get(android.Manifest.permission.CAMERA)==true
+        myPermissionCheck.value = "RequestResult: $granted"
+    }
+}
+```
