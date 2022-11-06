@@ -110,8 +110,23 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
     override val softInputMode = mutableStateOf(SoftInputMode.adjustNothing)
     override val resolver: Resolver = Resolver()
     override val notifier: NotificationService = NotificationService{id,arg->
+        
+    }
+    override val navigation: MutableState<UIScope?> = Navigation()
+    override val permissionHandler: PermissionHandler = PermissionHandler()
+    override val resultingActivityHandler: ResultingActivityHandler = ResultingActivityHandler()
+}
+```
+## Navigation
+
+Let's suppose we need to goto pageA when MainScreen's one button will be clicked. In that case the MainViewModel will look like below:
+```Kotlin
+class MainViewModel: WirelessViewModelInterface, ViewModel() {
+    override val softInputMode = mutableStateOf(SoftInputMode.adjustNothing)
+    override val resolver: Resolver = Resolver()
+    override val notifier: NotificationService = NotificationService{id,arg->
         when(id) {
-            "goto_a->{
+            "goto_a"->{
                 navigation.scope { navHostController, lifecycleOwner, toaster ->
                     navHostController.navigate("pageA")
                 }
@@ -123,4 +138,3 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
     override val resultingActivityHandler: ResultingActivityHandler = ResultingActivityHandler()
 }
 ```
-## Navigation
