@@ -224,3 +224,7 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
     }
 }
 ```
+
+# Resolver
+
+It maps ids to data. UI request data via that id. You can add any number of uniqe mappings.
