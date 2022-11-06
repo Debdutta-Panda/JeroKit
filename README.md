@@ -66,9 +66,9 @@ MainScreen() and PageA() are normal/regular composables. You can include as many
 -----------------------
 ```Kotlin
 val navController = rememberAnimatedNavController()
-    AnimatedNavHost(
-        navController,
-        startDestination = "main"
+AnimatedNavHost(
+    navController,
+    startDestination = "main"
 ) {
     // your screens
 }
@@ -76,5 +76,51 @@ val navController = rememberAnimatedNavController()
 This kit force you to use Animated NavHost.
 ## Screen
 -----------------------
+```Kotlin
+JeroScreen<your_view_model>(
+    navController = navController,
+    route = "your_route",
+) {
+    // your composable
+}
+```
+### Example screen content
+```Kotlin
+@Composable
+fun MainScreen(
+    notifier: NotificationService = myNotifier()
+){
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ){
+        item{
+            Button(onClick = {
+                notifier.notify("goto_a")
+            }) {
+                Text("Go to PageA")
+            }
+        }
 
+    }
+}
+```
+### Example viewModel
+```Kotlin
+class MainViewModel: WirelessViewModelInterface, ViewModel() {
+    override val softInputMode = mutableStateOf(SoftInputMode.adjustNothing)
+    override val resolver: Resolver = Resolver()
+    override val notifier: NotificationService = NotificationService{id,arg->
+        when(id) {
+            "goto_a->{
+                navigation.scope { navHostController, lifecycleOwner, toaster ->
+                    navHostController.navigate("pageA")
+                }
+            }
+        }
+    }
+    override val navigation: MutableState<UIScope?> = Navigation()
+    override val permissionHandler: PermissionHandler = PermissionHandler()
+    override val resultingActivityHandler: ResultingActivityHandler = ResultingActivityHandler()
+}
+```
 ## Navigation
