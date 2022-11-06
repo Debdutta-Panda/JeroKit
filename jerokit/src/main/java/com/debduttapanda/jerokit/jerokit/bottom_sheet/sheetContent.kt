@@ -80,7 +80,8 @@ class Sheeting @OptIn(ExperimentalMaterialApi::class) constructor(
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = skipHalfExpanded,
         confirmStateChange = confirmStateChange,
-        onVisibilityChange = onVisibilityChanged
+        onVisibilityChange = onVisibilityChanged,
+        sheeting = this
     )
     val sheetHandler get() = _sheetHandler
 
@@ -109,5 +110,9 @@ class Sheeting @OptIn(ExperimentalMaterialApi::class) constructor(
 
     fun clear() {
         sheetMap[sheets.value]?.clear()
+    }
+
+    fun onVisibilityChange(it: Boolean) {
+        sheetMap[sheets.value]?.onVisibilityChange(it)
     }
 }

@@ -1,6 +1,5 @@
 package com.debduttapanda.jerokit.jerokit
 
-import androidx.compose.animation.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.snapshots.SnapshotStateMap
@@ -119,7 +118,7 @@ fun <T>safeTState(key: Any): State<T>? {
 }
 
 @Composable
-fun notifier(): NotificationService {
+fun myNotifier(): NotificationService {
     return LocalNotificationService.current
 }
 

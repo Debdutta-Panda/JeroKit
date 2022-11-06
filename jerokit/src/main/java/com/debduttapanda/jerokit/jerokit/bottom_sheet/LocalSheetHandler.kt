@@ -11,7 +11,8 @@ val LocalSheetHandler = compositionLocalOf {
         initialValue = ModalBottomSheetValue.Hidden,
         skipHalfExpanded = true,
         confirmStateChange = { false },
-        onVisibilityChange = {}
+        onVisibilityChange = {},
+        sheeting = null
     )
 }
 

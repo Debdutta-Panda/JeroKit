@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 @Composable
 fun BackHandle(
     suffix: String,
-    notifier: NotificationService = notifier()
+    notifier: NotificationService = myNotifier()
 ) {
     BackHandler(enabled = true, onBack = {
         notifier.notify("back_$suffix", null)

@@ -15,7 +15,8 @@ data class SheetHandler @OptIn(ExperimentalMaterialApi::class) constructor(
     val initialValue: ModalBottomSheetValue,
     val skipHalfExpanded: Boolean,
     val confirmStateChange: (ModalBottomSheetValue) -> Boolean = { true },
-    val onVisibilityChange: (Boolean)->Unit = {}
+    val onVisibilityChange: (Boolean)->Unit = {},
+    val sheeting: Sheeting?,
 ){
 
     @OptIn(ExperimentalMaterialApi::class)
@@ -54,6 +55,7 @@ data class SheetHandler @OptIn(ExperimentalMaterialApi::class) constructor(
         }
         LaunchedEffect(key1 = _state){
             snapshotFlow { _state.isVisible }.collect{
+                sheeting?.onVisibilityChange(it)
                 onVisibilityChange(it)
             }
         }

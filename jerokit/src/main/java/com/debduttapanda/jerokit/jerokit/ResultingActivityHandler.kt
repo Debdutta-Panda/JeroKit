@@ -14,35 +14,35 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
+suspend fun ResultingActivityHandler.takePicturePreview(
+    maxTry: Int = 10,
+    millis: Long = 200
+): Bitmap?{
+    return request(
+        ActivityResultContracts
+            .TakePicturePreview(),
+        maxTry,
+        millis
+    ){
+        it.launch()
+    }
+}
+suspend fun ResultingActivityHandler.getContent(
+    type: String,
+    maxTry: Int = 10,
+    millis: Long = 200
+): Uri?{
+    return request(
+        ActivityResultContracts.GetContent(),
+        maxTry,
+        millis
+    ){
+        it.launch(type)
+    }
+}
+
 class ResultingActivityHandler {
     private var _callback = mutableStateOf<(@Composable () -> Unit)?>(null)
-
-    suspend fun takePicturePreview(
-        maxTry: Int = 10,
-        millis: Long = 200
-    ): Bitmap?{
-        return request(
-            ActivityResultContracts
-                .TakePicturePreview(),
-            maxTry,
-            millis
-        ){
-            it.launch()
-        }
-    }
-    suspend fun getContent(
-        type: String,
-        maxTry: Int = 10,
-        millis: Long = 200
-    ): Uri?{
-        return request(
-            ActivityResultContracts.GetContent(),
-            maxTry,
-            millis
-        ){
-            it.launch(type)
-        }
-    }
 
     suspend fun <I, O> request(
         contract: ActivityResultContract<I, O>,

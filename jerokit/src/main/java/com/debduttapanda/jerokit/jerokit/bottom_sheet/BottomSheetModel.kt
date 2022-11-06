@@ -28,4 +28,6 @@ interface BottomSheetModel{
             Content()
         }
     }
+
+    fun onVisibilityChange(it: Boolean)
 }
