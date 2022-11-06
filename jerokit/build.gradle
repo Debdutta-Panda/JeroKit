@@ -67,7 +67,7 @@ afterEvaluate {
                 from components.release
 
                 // You can then customize attributes of the publication as shown below.
-                groupId = 'com.github.Debdutta-Panda.LibraryGithub'
+                groupId = 'com.github.Debdutta-Panda.JeroKit'
                 artifactId = 'JeroKit'
                 version = '1.0.0'
             }
