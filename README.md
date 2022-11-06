@@ -397,3 +397,34 @@ Column {
     }
 }
 ```
+
+# Modal Bottom Sheet management
+
+```Kotlin
+Row(){
+    Button(onClick = {
+        notifier.notify("sheet",1)
+    }) {
+        Text("Sheet1")
+    }
+    Button(onClick = {
+        notifier.notify("sheet",2)
+    }) {
+        Text("Sheet2")
+    }
+}
+```
+```Kotlin
+"sheet"->{
+    when(arg){
+        1->{
+            mySheeting.change(MySheets.Sheet1)
+            mySheeting.show()
+        }
+        2->{
+            mySheeting.change(MySheets.Sheet2)
+            mySheeting.show()
+        }
+    }
+}
+```
