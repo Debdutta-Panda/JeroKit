@@ -175,3 +175,52 @@ override val notifier: NotificationService = NotificationService{id,arg->
         }
     }
 ```
+# Screen Content from viewModel
+
+```Kotlin
+@Composable
+fun MainScreen(
+    myText: String = stringState(key = "myText").value,
+    notifier: NotificationService = myNotifier()
+){
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+    ){
+        item{
+            Text(myText)
+        }
+        item{
+            Button(onClick = {
+                notifier.notify("change")
+            }) {
+                Text("Change")
+            }
+        }
+    }
+}
+```
+```Kotlin
+class MainViewModel: WirelessViewModelInterface, ViewModel() {
+    override val softInputMode = mutableStateOf(SoftInputMode.adjustNothing)
+    override val resolver: Resolver = Resolver()
+    override val notifier: NotificationService = NotificationService{id,arg->
+        when(id) {
+            "change"->{
+                myText.value = "${++count}"
+            }
+        }
+    }
+    override val navigation: MutableState<UIScope?> = Navigation()
+    override val permissionHandler: PermissionHandler = PermissionHandler()
+    override val resultingActivityHandler: ResultingActivityHandler = ResultingActivityHandler()
+    ////////////////////////////////////////////////////////////////
+    private var count = 0
+    private val myText = mutableStateOf("$count")
+    ////////////////////////////////////////////////////////////////
+    init {
+        resolver.addAll(
+            "myText" to myText,
+        )
+    }
+}
+```
