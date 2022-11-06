@@ -331,4 +331,4 @@ Column {
 
 # UI reusability across multiple viewModels
 
-Because UI has not any viewModel instance access, it is getting data via resolver and sending UI events through notifier it is fully decoupled from viewModel instance. So any ui can be attached to any viewModel, that viewModel must satisfy the UI data requirement otherwise app will crash.
+Because UI has not any viewModel instance access, it is getting data via resolver and sending UI events through notifier it is fully decoupled from viewModel instance. So any ui can be attached to any viewModel, that viewModel must satisfy the UI data requirement otherwise app will crash, it is by design.
