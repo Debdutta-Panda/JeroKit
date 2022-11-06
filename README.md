@@ -31,7 +31,7 @@ allprojects {
 Add the dependency
 ```Groovy
 dependencies {
-    implementation 'com.github.Debdutta-Panda:JeroKit:Tag'
+    implementation 'com.github.Debdutta-Panda:JeroKit:<latest_version>'
 }
 ```
 # Usage
@@ -138,3 +138,4 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
     override val resultingActivityHandler: ResultingActivityHandler = ResultingActivityHandler()
 }
 ```
+Inside the `navigation.scope` block you can do any in-built navigation action you want. JeroKit gives you full freedom to use navigation api.
