@@ -10,6 +10,7 @@ Jetpack Compose is just awesome. It saves lots of hours and produce nice UI with
 - Back press handling
 - Soft input mode management
 - UI reusability across multiple viewModels
-is still weird or not smooth
 
-Jerokit addressed those problems and offers smooth coding in viewModl to manage all the above points from viewModel
+are still weird because they need to be handled directly from composable UI code, but viewModel need to handle these things.
+
+Jerokit offers very easy mechanisms to manage these things directly from viewModel.
