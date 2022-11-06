@@ -11,6 +11,7 @@ Jetpack Compose is just awesome. It saves lots of hours and produce nice UI with
 - Resulting activity handling like camera, gallery etc
 - Back press handling
 - Soft input mode management
+- Status bar color management
 - UI reusability across multiple viewModels
 
 are still weird because they need to be handled directly from composable UI code, but viewModel need to handle these things.
@@ -243,4 +244,46 @@ override val notifier: NotificationService = NotificationService{id,arg->
             }
         }
     }
+```
+
+# Status bar color management
+
+```Kotlin
+Button(onClick = {
+    notifier.notify("change_color")
+}) {
+    Text("StatusBarColor")
+}
+```
+```Kotlin
+/////// in viewModel
+var obj: Random = Random()
+val colors = listOf(
+    Color.Red,
+    Color.Green,
+    Color.Blue,
+    Color.Yellow,
+    Color.Magenta,
+    Color.Cyan,
+    Color.White,
+    Color.Black,
+    Color.Gray,
+    Color.DarkGray,
+    Color.LightGray,
+)
+val statusBarColor = mutableStateOf<StatusBarColor?>(null)
+/////////////// inside notification service block
+"change_color"->{
+    obj.setSeed(System.currentTimeMillis())
+    val rand_num: Int = obj.nextInt(colors.size - 1)
+    val color = colors[rand_num]
+    statusBarColor.value = StatusBarColor(
+        color = color,
+        darkIcons = true
+    )
+}
+/*
+    inside init block resolver.addAll(...)
+*/
+StatusBarColorId to statusBarColor
 ```
