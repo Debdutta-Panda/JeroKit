@@ -228,3 +228,19 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
 # Resolver
 
 It maps ids to data. UI request data via that id. You can add any number of uniqe mappings.
+
+# Back press handling
+
+Back press event will be notified via `NotificationService`.
+
+```Kotlin
+override val notifier: NotificationService = NotificationService{id,arg->
+        when(id){
+            "back_<route_name>"->{
+                navigation.scope { navHostController, lifecycleOwner, toaster ->
+                    //navHostController.popBackStack() // or whatever you want
+                }
+            }
+        }
+    }
+```
