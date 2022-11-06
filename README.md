@@ -18,6 +18,10 @@ are still weird because they need to be handled directly from composable UI code
 
 Jerokit offers very easy mechanisms to manage these things directly from viewModel.
 
+# Demo
+
+https://user-images.githubusercontent.com/92369023/200178078-f75a9e6f-d06c-475b-a495-ea9327067a51.mp4
+
 # Installation
 
 Add it in your root build.gradle at the end of repositories:
