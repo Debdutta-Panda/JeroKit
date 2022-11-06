@@ -16,3 +16,15 @@ Jetpack Compose is just awesome. It saves lots of hours and produce nice UI with
 are still weird because they need to be handled directly from composable UI code, but viewModel need to handle these things.
 
 Jerokit offers very easy mechanisms to manage these things directly from viewModel.
+
+# Installation
+
+Add it in your root build.gradle at the end of repositories:
+```Groovy
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
