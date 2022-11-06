@@ -22,9 +22,59 @@ Jerokit offers very easy mechanisms to manage these things directly from viewMod
 Add it in your root build.gradle at the end of repositories:
 ```Groovy
 allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
 ```
+Add the dependency
+```Groovy
+dependencies {
+    implementation 'com.github.Debdutta-Panda:JeroKit:Tag'
+}
+```
+# Usage
+--------------------------
+```Kotlin
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun JeroApp() {
+    val navController = rememberAnimatedNavController()
+    AnimatedNavHost(
+        navController,
+        startDestination = "main"
+    ) {
+        JeroScreen<MainViewModel>(
+            navController = navController,
+            route = "main",
+        ) {
+            MainScreen()
+        }
+        JeroScreen<PageAViewModel>(
+            navController = navController,
+            route = "pageA",
+        ) {
+            PageA()
+        }
+    }
+}
+```
+Every screen is must to use with viewModel. So this kit is essentially force you to follow MVVM.
+MainScreen() and PageA() are normal/regular composables. You can include as many pages as you want.
+## NavHostController
+-----------------------
+```Kotlin
+val navController = rememberAnimatedNavController()
+    AnimatedNavHost(
+        navController,
+        startDestination = "main"
+) {
+    // your screens
+}
+```
+This kit force you to use Animated NavHost.
+## Screen
+-----------------------
+
+## Navigation
