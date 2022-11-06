@@ -690,3 +690,5 @@ override val sheeting = Sheeting(
         )
     )
 ```
+
+The bottom sheet manangement mechanism supports multiple modal bottom sheets in the same page/screen. The sheets can be used in any viewModel. They are pluggable in nature.
