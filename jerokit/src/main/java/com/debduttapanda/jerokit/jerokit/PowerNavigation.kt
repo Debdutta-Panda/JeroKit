@@ -23,6 +23,8 @@ data class Toaster(
 
 typealias UIScope = suspend Bundle.(NavHostController, LifecycleOwner, Toaster?) -> Unit
 
+
+
 fun MutableState<UIScope?>.scope(block: UIScope?){
     this.value = {navHostController, lifecycleOwner, toaster ->
         block?.invoke(
@@ -48,7 +50,7 @@ suspend fun MutableState<UIScope?>.forward(
     )
 }
 
-fun Navigation() = mutableStateOf<UIScope?>(null)
+fun PowerNavigation() = mutableStateOf<UIScope?>(null)
 
 fun NavHostController.set(
     route: String,

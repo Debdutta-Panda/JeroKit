@@ -122,13 +122,13 @@ fun myNotifier(): NotificationService {
     return LocalNotificationService.current
 }
 
-interface WirelessViewModelInterface{
-    val softInputMode: MutableState<Int>
+interface WirelessViewModel{
+    val softInput: MutableState<Int>
     val resolver: Resolver
     val notifier: NotificationService
-    val navigation: MutableState<UIScope?>
-    val permissionHandler: PermissionHandler
-    val resultingActivityHandler: ResultingActivityHandler
+    val pownav: MutableState<UIScope?>
+    val permitter: Permitter
+    val resultar: Resultar
     val sheeting: Sheeting get() = Sheeting()
     val mySheeting get() = sheeting
     companion object{

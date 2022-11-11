@@ -1,6 +1,6 @@
 package com.debduttapanda.jerokit.viewModels
 
-import android.content.pm.PackageManager
+import android.widget.Toast
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.graphics.Color
@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class MainViewModel: WirelessViewModelInterface, ViewModel() {
+class MainViewModel: WirelessViewModel, ViewModel() {
     var obj: Random = Random()
     val colors = listOf(
         Color.Red,
@@ -36,7 +36,7 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
         Color.LightGray,
     )
     ////////
-    override val softInputMode = mutableStateOf(SoftInputMode.adjustNothing)
+    override val softInput = mutableStateOf(SoftInput.adjustNothing)
     override val resolver: Resolver = Resolver()
     @OptIn(ExperimentalPermissionsApi::class)
     override val notifier: NotificationService = NotificationService{ id, arg->
@@ -54,13 +54,15 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
                 )
             }
             "goto_a"->{
-                navigation.scope { navHostController, lifecycleOwner, toaster ->
+                pownav.scope { navHostController, lifecycleOwner, toaster ->
                     navHostController.navigate(Routes.pageA.name)
+                    toaster?.toast("Hello")
+                    toaster?.toast("Hello", Toast.LENGTH_LONG)
                 }
             }
             "image"->{
                 viewModelScope.launch(Dispatchers.Main) {
-                    val result = resultingActivityHandler.takePicturePreview()
+                    val result = resultar.takePicturePreview()
                     withContext(Dispatchers.Main){
                         image.value = result
                     }
@@ -80,24 +82,24 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
             }
             "check_permission"->{
                 viewModelScope.launch(Dispatchers.Main) {
-                    val result = permissionHandler.check(android.Manifest.permission.CAMERA)
+                    val result = permitter.check(android.Manifest.permission.CAMERA)
                     val granted = result?.allPermissionsGranted==true
                     myPermissionCheck.value = "CheckResult: $granted"
                 }
             }
             "request_permission"->{
                 viewModelScope.launch(Dispatchers.Main) {
-                    val result = permissionHandler.request(android.Manifest.permission.CAMERA)
+                    val result = permitter.request(android.Manifest.permission.CAMERA)
                     val granted = result?.get(android.Manifest.permission.CAMERA)==true
                     myPermissionCheck.value = "RequestResult: $granted"
                 }
             }
             "softInputMode"->{
                 when(arg){
-                    0->softInputMode.value = SoftInputMode.adjustPan
-                    1->softInputMode.value = SoftInputMode.adjustNothing
-                    2->softInputMode.value = SoftInputMode.adjustUnspecified
-                    3->softInputMode.value = SoftInputMode.adjustResize
+                    0->softInput.value = SoftInput.adjustPan
+                    1->softInput.value = SoftInput.adjustNothing
+                    2->softInput.value = SoftInput.adjustUnspecified
+                    3->softInput.value = SoftInput.adjustResize
                 }
             }
             "back_${Routes.main.name}"->{
@@ -112,15 +114,15 @@ class MainViewModel: WirelessViewModelInterface, ViewModel() {
     }
 
     private fun pageBack() {
-        navigation.scope { navHostController, lifecycleOwner, toaster ->
+        pownav.scope { navHostController, lifecycleOwner, toaster ->
             navHostController.popBackStack()
         }
     }
 
     val statusBarColor = mutableStateOf<StatusBarColor?>(null)
-    override val navigation: MutableState<UIScope?> = Navigation()
-    override val permissionHandler: PermissionHandler = PermissionHandler()
-    override val resultingActivityHandler: ResultingActivityHandler = ResultingActivityHandler()
+    override val pownav: MutableState<UIScope?> = PowerNavigation()
+    override val permitter: Permitter = Permitter()
+    override val resultar: Resultar = Resultar()
     override val sheeting = Sheeting(
         sheetMap = mapOf(
             MySheets.Sheet1 to Sheet1Model(

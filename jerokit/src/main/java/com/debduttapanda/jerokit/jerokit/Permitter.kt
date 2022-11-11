@@ -11,7 +11,7 @@ import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
 @OptIn(ExperimentalPermissionsApi::class)
-class PermissionHandler{
+class Permitter{
     private val _permissions = mutableStateListOf<String>()
     private val _request = mutableStateOf(false)
 

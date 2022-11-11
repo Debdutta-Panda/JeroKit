@@ -14,22 +14,23 @@ import com.debduttapanda.jerokit.jerokit.bottom_sheet.LocalSheeting
 fun JeroPage(
     navController: NavHostController,
     suffix: String,
-    wvm: WirelessViewModelInterface,
+    wvm: WirelessViewModel,
     content: @Composable () -> Unit
 ) {
-    wvm.permissionHandler.handlePermission()
-    wvm.resultingActivityHandler.handle()
+    wvm.permitter.handlePermission()
+    wvm.resultar.handle()
     LaunchedEffect(key1 = Unit){
-        wvm.notifier.notify(WirelessViewModelInterface.startupNotification, null)
+        wvm.notifier.notify(WirelessViewModel.startupNotification, null)
     }
     val owner = LocalLifecycleOwner.current
-    LaunchedEffect(key1 = wvm.navigation.value){
-        wvm.navigation.forward(navController, owner)
+    val context = LocalContext.current
+    LaunchedEffect(key1 = wvm.pownav.value){
+        wvm.pownav.forward(navController, owner, Toaster(context))
     }
     // /////////
     val activity = LocalContext.current as Activity
-    LaunchedEffect(key1 = wvm.softInputMode.value) {
-        activity.window.setSoftInputMode(wvm.softInputMode.value)
+    LaunchedEffect(key1 = wvm.softInput.value) {
+        activity.window.setSoftInputMode(wvm.softInput.value)
     }
     // /////////
     CompositionLocalProvider(

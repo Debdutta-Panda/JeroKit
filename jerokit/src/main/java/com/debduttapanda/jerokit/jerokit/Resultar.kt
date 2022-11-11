@@ -14,7 +14,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
 
-suspend fun ResultingActivityHandler.takePicturePreview(
+suspend fun Resultar.takePicturePreview(
     maxTry: Int = 10,
     millis: Long = 200
 ): Bitmap?{
@@ -27,7 +27,7 @@ suspend fun ResultingActivityHandler.takePicturePreview(
         it.launch()
     }
 }
-suspend fun ResultingActivityHandler.getContent(
+suspend fun Resultar.getContent(
     type: String,
     maxTry: Int = 10,
     millis: Long = 200
@@ -41,7 +41,7 @@ suspend fun ResultingActivityHandler.getContent(
     }
 }
 
-class ResultingActivityHandler {
+class Resultar {
     private var _callback = mutableStateOf<(@Composable () -> Unit)?>(null)
 
     suspend fun <I, O> request(

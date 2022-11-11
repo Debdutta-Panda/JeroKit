@@ -112,7 +112,7 @@ class Sheeting @OptIn(ExperimentalMaterialApi::class) constructor(
         sheetMap[sheets.value]?.clear()
     }
 
-    fun onVisibilityChange(it: Boolean) {
+    internal fun onVisibilityChange(it: Boolean) {
         sheetMap[sheets.value]?.onVisibilityChange(it)
     }
 }

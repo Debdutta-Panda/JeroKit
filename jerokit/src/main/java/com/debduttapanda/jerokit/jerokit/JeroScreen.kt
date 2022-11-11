@@ -25,7 +25,7 @@ inline fun <reified T : ViewModel> NavGraphBuilder.JeroScreen(
         JeroPage(
             navController,
             suffix = route,
-            wvm = viewModel<T>() as? WirelessViewModelInterface ?: return@JeroComposable
+            wvm = viewModel<T>() as? WirelessViewModel ?: return@JeroComposable
         ) {
             content()
         }
