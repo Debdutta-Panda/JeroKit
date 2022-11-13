@@ -17,6 +17,7 @@ fun JeroPage(
     wvm: WirelessViewModel,
     content: @Composable () -> Unit
 ) {
+    InitializeMetrics()
     wvm.permitter.handlePermission()
     wvm.resultar.handle()
     LaunchedEffect(key1 = Unit){

@@ -9,9 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.debduttapanda.jerokit.DataIds
 import com.debduttapanda.jerokit.jerokit.*
+import com.debduttapanda.jerokit.viewModels.MyViewModel
 
 @Composable
 fun MainScreen(
@@ -106,6 +108,41 @@ fun MainScreen(
                 Box(modifier =Modifier.height(100.dp))
                 TextField(value = "", onValueChange = {})
             }
+        }
+    }
+}
+
+@Composable
+fun MyPage(
+    value: String = stringState(key = DataIds.value).value,
+    notifier: NotificationService = myNotifier()
+){
+    Column(){
+        Text(value)
+        Button(
+            onClick = {
+                notifier.notify("value_click")
+            }
+        ) {
+            Text("Click Me")
+        }
+        DeepUI()
+    }
+}
+
+@Composable
+fun DeepUI(
+    value: String = stringState(key = DataIds.value1).value,
+    notifier: NotificationService = myNotifier()
+) {
+    Column(){
+        Text(value)
+        Button(
+            onClick = {
+                notifier.notify("value_click1")
+            }
+        ) {
+            Text("Click Me 1")
         }
     }
 }

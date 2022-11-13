@@ -18,13 +18,12 @@ fun ModalBottomSheetLayout(
     scrimColor: Color = Color(0x8C243257),
     sheetBackgroundColor: Color = Color.White,
     sheetShape: Shape = RoundedCornerShape(
-        topStart = 33.dep(),
-        topEnd = 33.dep()
+        topStart = 33.dep,
+        topEnd = 33.dep
     ),
     sheeting: Sheeting = sheeting(),
     pageContent: @Composable () -> Unit
 ) {
-    Log.d("fldfldlf","${sheeting.sheets.value}")
     val sheetState = sheeting.sheetHandler.handle()
     ModalBottomSheetLayout(
         sheetState = sheetState,

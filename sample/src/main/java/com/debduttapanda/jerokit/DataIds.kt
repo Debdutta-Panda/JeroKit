@@ -1,5 +1,7 @@
 package com.debduttapanda.jerokit
 
 enum class DataIds {
-    GoToA
+    GoToA,
+    value,
+    value1
 }
